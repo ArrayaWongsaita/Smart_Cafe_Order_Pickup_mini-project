@@ -48,9 +48,7 @@ describe('HealthController', () => {
       const result = controller.checkHealth();
 
       // Assert
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(checkHealthUseCase.execute).toHaveBeenCalledTimes(1);
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(checkHealthUseCase.execute).toHaveBeenCalledWith();
       expect(result).toEqual(expectedResult);
     });
