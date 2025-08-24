@@ -27,7 +27,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Fetch the session once on the server to keep server & client markup in sync
   const session = await auth();
 
   return (
