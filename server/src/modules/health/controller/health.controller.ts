@@ -6,6 +6,7 @@ import {
   CheckHealthUseCase,
   CheckHealthUseCaseToken,
 } from 'src/modules/health/use-case/check-health.usecase';
+import { Public } from 'src/shared/decorators/public.decorator';
 import ValidateResponse from 'src/shared/decorators/validate-response.decorator';
 
 @ApiTags('Health')
@@ -17,6 +18,7 @@ export class HealthController {
   ) {}
 
   @Get()
+  @Public()
   @CheckHealthDocument()
   @ValidateResponse(CheckHealthDto)
   checkHealth(): CheckHealthDto {
