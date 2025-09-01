@@ -17,7 +17,7 @@
 
   // Check access
   async function checkAccess() {
-    const input = prompt('🔒 Enter access code to view Swagger UI:', '');
+    const input = prompt('🔒 Enter access code to view Swagger UI:', 'apiv1');
     if (!input) {
       alert('❌ Access denied. Redirecting...');
       window.location.href = 'https://google.com';
