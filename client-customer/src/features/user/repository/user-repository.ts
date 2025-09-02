@@ -1,5 +1,5 @@
 import { IUserRepository } from '@/features/user/interfaces/user-repository.interface';
-import { registerUser } from '@/shared/api/server/auth.api';
+import { registerUser } from '@/infrastructure/api/server/auth.api';
 import { CreateUser } from '@/shared/types/user.type';
 
 class UserRepository implements IUserRepository {

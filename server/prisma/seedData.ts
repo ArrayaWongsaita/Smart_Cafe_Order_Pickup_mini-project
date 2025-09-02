@@ -31,7 +31,13 @@ export const menuItemData = [
     imageUrl:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kawaii_paper_coffee_cup_clip_art.svg/1920px-Kawaii_paper_coffee_cup_clip_art.svg.png?20191207190614',
   },
-  { name: 'Croissant', description: 'Buttery pastry', price: 3000 },
+  {
+    name: 'Croissant',
+    description: 'Buttery pastry',
+    price: 3000,
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kawaii_paper_coffee_cup_clip_art.svg/1920px-Kawaii_paper_coffee_cup_clip_art.svg.png?20191207190614',
+  },
   {
     name: 'Latte',
     description: 'Smooth coffee with steamed milk',
@@ -39,12 +45,26 @@ export const menuItemData = [
     imageUrl:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kawaii_paper_coffee_cup_clip_art.svg/1920px-Kawaii_paper_coffee_cup_clip_art.svg.png?20191207190614',
   },
-  { name: 'Muffin', description: 'Blueberry muffin', price: 4000 },
-  { name: 'Iced Tea', description: 'Refreshing iced tea', price: 3500 },
+  {
+    name: 'Muffin',
+    description: 'Blueberry muffin',
+    price: 4000,
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kawaii_paper_coffee_cup_clip_art.svg/1920px-Kawaii_paper_coffee_cup_clip_art.svg.png?20191207190614',
+  },
+  {
+    name: 'Iced Tea',
+    description: 'Refreshing iced tea',
+    price: 3500,
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kawaii_paper_coffee_cup_clip_art.svg/1920px-Kawaii_paper_coffee_cup_clip_art.svg.png?20191207190614',
+  },
   {
     name: 'Chocolate Cake',
     description: 'Rich chocolate dessert',
     price: 5500,
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kawaii_paper_coffee_cup_clip_art.svg/1920px-Kawaii_paper_coffee_cup_clip_art.svg.png?20191207190614',
   },
   {
     name: 'Cappuccino',
@@ -57,6 +77,8 @@ export const menuItemData = [
     name: 'Bagel',
     description: 'Toasted bagel with cream cheese',
     price: 4500,
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kawaii_paper_coffee_cup_clip_art.svg/1920px-Kawaii_paper_coffee_cup_clip_art.svg.png?20191207190614',
   },
 ];
 

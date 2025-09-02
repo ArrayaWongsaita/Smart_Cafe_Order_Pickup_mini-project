@@ -24,8 +24,8 @@ export default function SignInForm() {
   const form = useForm<FormInput>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: 'john.doe@example.com',
-      password: 'Test123',
+      email: 'customer@example.com',
+      password: 'password1',
     },
   });
 
@@ -34,7 +34,8 @@ export default function SignInForm() {
       const result = await signInCredentials(data);
       if (result.success) {
         toast.success(result.message || 'Signed in successfully');
-        router.push(PUBLIC_ROUTE.HOME);
+        // Force router refresh to update session
+        router.push(PUBLIC_ROUTE.MENU(1));
       } else {
         form.setError('email', {
           type: 'manual',

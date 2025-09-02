@@ -5,10 +5,11 @@ export default function LogoImage() {
     <div className="w-full h-full flex items-center space-x-3">
       <Image
         src={logoUrl}
-        alt=" logo"
+        alt="logo"
         width={60}
         height={60}
-        style={{ height: 'auto' }}
+        style={{ height: 'auto', width: 'auto' }}
+        priority
       />
     </div>
   );

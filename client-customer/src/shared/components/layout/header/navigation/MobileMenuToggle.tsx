@@ -5,8 +5,6 @@ import { Menu, X } from 'lucide-react';
 import CourseNavigation from './CourseNavigation';
 import { cn } from '@/shared/lib/utils';
 import { usePathname } from 'next/navigation';
-import AuthButtons from '@/shared/components/layout/header/AuthButtons';
-import { getSession, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 
 interface MobileMenuToggleProps {
@@ -42,7 +40,7 @@ export default function MobileMenuToggle({
 
         {/* Navigation Sidebar */}
         {isOpen && (
-          <div className="fixed top-14 bg-white w-screen inset-0 z-40 flex  ">
+          <div className="fixed top-14 bg-secondary w-screen inset-0 z-40 flex  ">
             <CourseNavigation session={session} />
           </div>
         )}

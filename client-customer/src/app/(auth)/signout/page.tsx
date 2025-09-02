@@ -6,13 +6,10 @@ import { useEffect } from 'react';
 
 export default function page() {
   useEffect(() => {
-    const signOutUser = async () => {
-      await signOut({
-        callbackUrl: PUBLIC_ROUTE.SIGN_IN,
-      });
+    const handleSignOut = async () => {
+      await signOut({ redirectTo: PUBLIC_ROUTE.SIGN_IN });
     };
-    signOutUser();
+    handleSignOut();
   }, []);
-
-  return <div></div>;
+  return <></>;
 }

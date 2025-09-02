@@ -1,6 +1,7 @@
 'use server';
 
 import { registerUserUseCase } from '@/features/auth/use-case/register.usecase';
+import { PUBLIC_ROUTE } from '@/shared/constants';
 import { signIn, signOut } from '@/shared/lib/auth';
 import { HttpError } from '@/shared/lib/error';
 import { signUpExcludeConfirmSchema } from '@/shared/schema/auth/auth.schema';
@@ -45,7 +46,8 @@ export async function signInCredentials(
   try {
     await signIn('credentials', { ...data, redirect: false });
     return { success: true, message: 'Signed in successfully' };
-  } catch {
+  } catch (error) {
+    console.error('signIn error:', error);
     return {
       success: false,
       message: 'Failed to sign in',
@@ -55,6 +57,5 @@ export async function signInCredentials(
 }
 
 export async function signOutUser() {
-  await signOut({ redirect: true, redirectTo: '/' });
-  revalidatePath('/');
+  await signOut({ redirect: true, redirectTo: PUBLIC_ROUTE.HOME });
 }
