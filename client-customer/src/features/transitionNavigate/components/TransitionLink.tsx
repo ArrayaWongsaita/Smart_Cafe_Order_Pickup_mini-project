@@ -1,12 +1,8 @@
 'use client';
 
-import {
-  DURATION_END,
-  DURATION_START,
-} from '@/features/transitionNavigate/constants/duration';
 import { useNavigation } from '@/features/transitionNavigate/hooks/navigation';
 import { useRouter, usePathname } from 'next/navigation';
-import { useCallback, MouseEvent } from 'react';
+import { useCallback } from 'react';
 
 interface TransitionLinkProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -29,7 +25,7 @@ export default function TransitionLink({
 
   const handleClick = useCallback(async () => {
     TransitionNavigate(href, router, pathname);
-  }, [router, href, pathname]);
+  }, [TransitionNavigate, router, href, pathname]);
 
   return (
     <button className={combinedClass} onClick={handleClick} {...rest}>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { animate, JSAnimation, stagger, text, TextSplitter } from 'animejs';
+import { animate, stagger, text } from 'animejs';
 import Image from 'next/image';
 import { useNavigation } from '@/features/transitionNavigate/hooks/navigation';
 import {

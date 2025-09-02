@@ -4,6 +4,7 @@ import { auth } from '@/shared/lib';
 import { Suspense } from 'react';
 import AuthButtonAndMobileMenuSkeleton from './AuthButtonAndMobileMenu.skeleton';
 import { ModeToggle } from '@/shared/components/ui/ThemeButton';
+import { CartButton } from '@/features/cart';
 
 // Async component for loading auth content
 async function AuthButtonContent() {
@@ -19,6 +20,7 @@ async function AuthButtonContent() {
 export default function AuthButtonAndMobileMenu() {
   return (
     <div className="flex items-center gap-4">
+      <CartButton />
       <ModeToggle />
       <Suspense fallback={<AuthButtonAndMobileMenuSkeleton />}>
         <AuthButtonContent />

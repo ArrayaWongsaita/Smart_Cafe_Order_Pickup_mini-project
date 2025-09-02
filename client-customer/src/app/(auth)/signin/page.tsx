@@ -1,6 +1,5 @@
 import AuthCard from '@/features/auth/components/auth-card';
 import SignInForm from '@/features/auth/components/sign-in-form';
-import SignUpForm from '@/features/auth/components/sign-up-form';
 import TransitionLink from '@/features/transitionNavigate/components/TransitionLink';
 
 import { Metadata } from 'next';

@@ -1,4 +1,3 @@
-import { Skeleton } from '@/shared/components/ui/skeleton';
 import MenuItemCardSkeleton from '@/features/menu/components/card/MenuItemCard.skeleton';
 
 interface MenuListSkeletonProps {

@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FilterMenuDto } from '@/features/menu/dto/filter-menu.dto';
 import { IMenuRepository } from '@/features/menu/interfaces';
-
 import { MenuItemsWithPagination } from '@/features/menu/schemas/menu-item.schema';
 import { MenuItem } from '@/features/menu/types/menu-item.type';
 import type { MenuItemsWithPagination as MenuItemsWithPaginationType } from '@/features/menu/types/menu-item.type';

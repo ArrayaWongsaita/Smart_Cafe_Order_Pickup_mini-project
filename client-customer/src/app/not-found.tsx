@@ -45,7 +45,7 @@ export default function NotFound() {
       </div>
 
       <div className="text-xs text-muted-foreground/60 mt-8">
-        🍪 Maybe grab a cookie while you're here?
+        🍪 Maybe grab a cookie while you&apos;re here?
       </div>
     </main>
   );

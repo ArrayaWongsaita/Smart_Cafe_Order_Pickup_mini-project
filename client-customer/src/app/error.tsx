@@ -70,7 +70,7 @@ export default function Error({
       </div>
 
       <div className="text-xs text-muted-foreground/60 mt-8">
-        ☕ Don't worry, the coffee is still brewing!
+        ☕ Don&apos;t worry, the coffee is still brewing!
       </div>
     </main>
   );
