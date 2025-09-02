@@ -3,8 +3,6 @@ import {
   DURATION_START,
 } from '@/features/transitionNavigate/constants/duration';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { usePathname } from 'next/navigation';
-import { NextRouter, useRouter } from 'next/router';
 import { create } from 'zustand';
 
 interface NavigationStore {

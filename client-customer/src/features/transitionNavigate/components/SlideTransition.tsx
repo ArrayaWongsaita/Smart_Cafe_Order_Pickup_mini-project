@@ -85,7 +85,7 @@ export default function SlideTransition({
         className="fixed top-1/2 left-0 -translate-y-1/2 z-[9999] pointer-events-none opacity-0"
       >
         <div className="flex  items-center justify-center gap-6 p-4 rounded-xl">
-          <p className="text-4xl md:text-6xl font-bold ">Dev Coffee</p>
+          <p className="text-4xl md:text-6xl font-bold ">Coffee House</p>
 
           <Image
             ref={coffeeRef}
