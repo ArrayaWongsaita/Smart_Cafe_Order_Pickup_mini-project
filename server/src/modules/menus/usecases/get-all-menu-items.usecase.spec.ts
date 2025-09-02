@@ -19,7 +19,6 @@ describe('GetAllMenuItemsUseCase (mocked repo)', () => {
       active: true,
       categoryId: null,
       category: null,
-      orderItems: [],
       createdAt: new Date(),
       updatedAt: new Date(),
     };

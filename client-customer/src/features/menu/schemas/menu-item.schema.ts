@@ -21,13 +21,8 @@ export const menuItemBaseSchema = z.object({
   imageUrl: z.url(),
   active: z.boolean(),
   category: categorySchema.nullable(),
-  orderItems: z.array(z.unknown()),
-  createdAt: z.string().refine((s) => !Number.isNaN(Date.parse(s)), {
-    message: 'Invalid ISO date',
-  }),
-  updatedAt: z.string().refine((s) => !Number.isNaN(Date.parse(s)), {
-    message: 'Invalid ISO date',
-  }),
+  createdAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
 });
 
 export const MenuItemsWithPagination = z.object({

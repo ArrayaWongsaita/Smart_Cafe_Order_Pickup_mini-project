@@ -6,7 +6,7 @@ import { PUBLIC_ROUTE } from '@/shared/constants';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-green-50">
+    <div className="min-h-screen bg-secondary">
       {/* Welcome Section */}
       <main className="flex items-center justify-center min-h-[calc(100vh-80px)]">
         <div className="text-center px-6 max-w-2xl">
@@ -19,13 +19,13 @@ export default function Home() {
 
           {/* Welcome Message */}
           <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-secondary-foreground mb-4">
               ยินดีต้อนรับ
             </h1>
-            <h2 className="text-2xl md:text-3xl text-green-600 font-semibold mb-6">
+            <h2 className="text-2xl md:text-3xl text-secondary-foreground font-semibold mb-6">
               สู่ Coffee House
             </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-lg text-secondary-foreground leading-relaxed">
               ร้านกาแฟที่พร้อมเสิร์ฟความอร่อยและความสุขให้กับคุณ
               <br />
               เลือกเมนูที่ชื่นชอบและสั่งได้ทันที
@@ -44,7 +44,7 @@ export default function Home() {
           </div>
 
           {/* Additional Info */}
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-secondary-foreground">
             <p>เปิดบริการทุกวัน 07:00 - 21:00 น.</p>
           </div>
         </div>

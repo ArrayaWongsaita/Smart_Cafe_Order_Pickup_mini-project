@@ -1,14 +1,14 @@
 import { FilterMenuDto } from '@/features/menu/dto/filter-menu.dto';
-import { MenuRepository } from '@/features/menu/interfaces/menu-repository.interface';
+import { IMenuRepository } from '@/features/menu/interfaces';
+
 import { MenuItemsWithPagination } from '@/features/menu/schemas/menu-item.schema';
 import { MenuItem } from '@/features/menu/types/menu-item.type';
 import type { MenuItemsWithPagination as MenuItemsWithPaginationType } from '@/features/menu/types/menu-item.type';
 import menuServerApi, {
   MenuServerApi,
 } from '@/infrastructure/api/server/menu.api';
-import { Menu } from '@/shared/components/cards/MenuCard';
 
-class MenuApiRepository implements MenuRepository {
+class MenuApiRepository implements IMenuRepository {
   constructor(private readonly menuServerApi: MenuServerApi) {}
   async findAllWithDetails(
     filterDto: FilterMenuDto

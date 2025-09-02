@@ -5,11 +5,6 @@ import { Toaster } from 'sonner';
 import SlideTransition from '@/features/transitionNavigate/components/SlideTransition';
 import Header from '@/shared/components/layout/header/Header';
 import { SessionProvider } from 'next-auth/react';
-import { auth } from '@/shared/lib/auth';
-import { PUBLIC_ROUTE } from '@/shared/constants';
-import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
-import HeaderWrapper from '@/shared/components/layout/header/HeaderWrapper';
 import { ThemeProvider } from 'next-themes';
 
 const geistSans = Geist({

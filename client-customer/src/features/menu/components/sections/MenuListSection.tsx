@@ -1,9 +1,11 @@
 import MenuList from '@/features/menu/components/menu-list/menuList';
+import MenuListSectionSkeleton from '@/features/menu/components/sections/MenuListSection.skeleton';
 import findAllMenuItemsUseCase from '@/features/menu/use-case/find-all-menu-item.usecase';
 import PaginationList from '@/shared/components/pagination/PaginationList';
 import { ParamsAndSearchParamsProps } from '@/shared/types';
+import { Suspense } from 'react';
 
-export default async function MenuListSection({
+export async function MenuListSection({
   params,
   searchParams,
 }: ParamsAndSearchParamsProps) {
@@ -20,5 +22,16 @@ export default async function MenuListSection({
       <MenuList menuItems={menuItems.data} />
       <PaginationList meta={menuItems.meta} basePath="/menu" />
     </>
+  );
+}
+
+export default function MenuListSectionSuspense({
+  params,
+  searchParams,
+}: ParamsAndSearchParamsProps) {
+  return (
+    <Suspense fallback={<MenuListSectionSkeleton />}>
+      <MenuListSection params={params} searchParams={searchParams} />
+    </Suspense>
   );
 }

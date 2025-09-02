@@ -73,7 +73,7 @@ export default function FilterButtonList({
   return (
     <div className={`space-y-2 ${className}`}>
       {placeholder && (
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-secondary-foreground mb-2">
           {placeholder}
         </label>
       )}
@@ -113,7 +113,7 @@ export default function FilterButtonList({
 
       {/* แสดงตัวกรองปัจจุบัน */}
       {currentValue && (
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-secondary-foreground">
           กรองโดย:{' '}
           {options.find((opt) => opt.value === currentValue)?.label ||
             currentValue}
