@@ -2,7 +2,6 @@ import { NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { customFetch } from './fetch.config';
 import { jwtDecode } from 'jwt-decode';
-import { JWT } from 'next-auth/jwt';
 
 import { signInSchema } from '@/shared/schema/auth/auth.schema';
 import { Role } from '@/shared/types/user.type';

@@ -33,6 +33,7 @@ export default function SearchInput({
     }, debounceDelay);
 
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue, debounceDelay]);
 
   // อัปเดต URL โดยไม่เปลี่ยน pathname
@@ -68,6 +69,7 @@ export default function SearchInput({
     if (currentValue !== searchValue) {
       setSearchValue(currentValue);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, queryKey]);
 
   return (

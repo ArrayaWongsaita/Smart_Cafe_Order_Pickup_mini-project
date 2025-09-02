@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import { Button } from '@/shared/components/ui/button';
 import { ArrowRight, Coffee } from 'lucide-react';
 import TransitionLink from '@/features/transitionNavigate/components/TransitionLink';
 import { PUBLIC_ROUTE } from '@/shared/constants';

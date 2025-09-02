@@ -31,7 +31,7 @@ export async function customFetch<T = unknown>(
 
   if (!response.ok) {
     const contentType = response.headers.get('content-type') || '';
-    let errorBody: any;
+    let errorBody: unknown;
     if (contentType.includes('application/json')) {
       errorBody = await response.json().catch(() => undefined);
     } else {
@@ -41,9 +41,21 @@ export async function customFetch<T = unknown>(
     response.headers.forEach((value, key) => {
       headersObj[key] = value;
     });
+
+    const getErrorMessage = (body: unknown): string => {
+      if (body && typeof body === 'object' && body !== null) {
+        const errorObj = body as Record<string, unknown>;
+        return (
+          (typeof errorObj.message === 'string' ? errorObj.message : '') ||
+          (typeof errorObj.error === 'string' ? errorObj.error : '')
+        );
+      }
+      return '';
+    };
+
     throw new HttpError({
       message:
-        (errorBody && (errorBody.message || errorBody.error)) ||
+        getErrorMessage(errorBody) ||
         `Request failed with status code ${response.status}`,
       status: response.status,
       statusText: response.statusText,

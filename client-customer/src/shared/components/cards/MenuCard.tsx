@@ -10,6 +10,7 @@ import {
 } from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/lib/utils';
+import { formatPrice } from '@/shared/utils/formatPrice.util';
 
 type Category = {
   id: string;
@@ -25,14 +26,6 @@ export type Menu = {
   active?: boolean;
   category?: Category;
 };
-
-function formatPrice(cents: number) {
-  return (cents / 100).toLocaleString(undefined, {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2,
-  });
-}
 
 export default function MenuCard({
   item,

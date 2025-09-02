@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import HeaderWrapper from './HeaderWrapper';
 import Logo from './Logo';
 import Navbar from './navbar/Navbar';

@@ -5,9 +5,7 @@ import { PUBLIC_ROUTE } from '@/shared/constants';
 import { signIn, signOut } from '@/shared/lib/auth';
 import { HttpError } from '@/shared/lib/error';
 import { signUpExcludeConfirmSchema } from '@/shared/schema/auth/auth.schema';
-
 import { ActionResult } from '@/shared/types';
-import { revalidatePath } from 'next/cache';
 
 export async function signUpCredentials(
   rawData: unknown

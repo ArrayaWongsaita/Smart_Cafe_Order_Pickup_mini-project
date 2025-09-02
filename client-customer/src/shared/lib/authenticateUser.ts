@@ -4,10 +4,6 @@ import { authUserSchema } from '@/shared/schema/auth/auth.schema';
 import { AuthUser } from '@/shared/types';
 import { redirect } from 'next/navigation';
 
-interface authenticateUserOptions {
-  isCheckError?: boolean;
-}
-
 export async function authenticateUser(
   isCheckError: boolean = false
 ): Promise<AuthUser> {

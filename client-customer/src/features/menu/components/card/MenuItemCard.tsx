@@ -10,6 +10,7 @@ import {
   CardContent,
   CardFooter,
 } from '@/shared/components/ui/card';
+import { formatPrice } from '@/shared/utils';
 import Image from 'next/image';
 
 interface MenuItemCardProps {
@@ -18,13 +19,6 @@ interface MenuItemCardProps {
 
 export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
   const { name, description, price, imageUrl, category, active } = menuItem;
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('th-TH', {
-      style: 'currency',
-      currency: 'THB',
-    }).format(price / 100); // แปลงจาก cents เป็น baht
-  };
 
   return (
     <Card
@@ -62,10 +56,11 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
           {name}
         </CardTitle>
         {description && (
-          <CardDescription className="text-gray-600 text-sm mb-3 line-clamp-2">
+          <CardDescription className="text-gray-600 text-sm mb-3 line-clamp-2 h-10">
             {description}
           </CardDescription>
         )}
+        {!description && <div className="h-10 mb-3" />}
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-primary">
             {formatPrice(price)}
@@ -74,7 +69,7 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
       </CardContent>
 
       <CardFooter className="p-4 pt-0">
-        <AddToCartButton active={active} />
+        <AddToCartButton active={active} menuItem={menuItem} />
       </CardFooter>
     </Card>
   );

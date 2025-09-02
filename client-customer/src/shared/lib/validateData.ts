@@ -1,9 +1,16 @@
-import { ZodError, type ZodSchema } from 'zod';
+import { ZodError, type ZodSchema, type ZodIssue } from 'zod';
+
+interface ValidationErrorDetail {
+  field: string;
+  message: string;
+  code: string;
+  received?: unknown;
+}
 
 export class ValidationError extends Error {
-  public errors: any[];
+  public errors: ValidationErrorDetail[];
 
-  constructor(errors: any[]) {
+  constructor(errors: ValidationErrorDetail[]) {
     super('Validation failed');
     this.name = 'ValidationError';
     this.errors = errors;
@@ -16,12 +23,14 @@ export function validateData<T>(schema: ZodSchema<T>, data: unknown): T {
     return schema.parse(data);
   } catch (error) {
     if (error instanceof ZodError) {
-      const validationErrors = error.issues.map((err: any) => ({
-        field: err.path.join('.'),
-        message: err.message,
-        code: err.code,
-        received: err.received,
-      }));
+      const validationErrors: ValidationErrorDetail[] = error.issues.map(
+        (err: ZodIssue) => ({
+          field: err.path.join('.'),
+          message: err.message,
+          code: err.code,
+          received: 'received' in err ? err.received : undefined,
+        })
+      );
 
       console.log(validationErrors);
 
