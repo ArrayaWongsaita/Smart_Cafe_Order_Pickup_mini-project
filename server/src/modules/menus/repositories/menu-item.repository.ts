@@ -45,7 +45,7 @@ export class MenuItemRepository implements IMenuItemRepository {
 
     const items = await this.prisma.menuItem.findMany({
       where,
-      include: { category: true, orderItems: true },
+      include: { category: true },
       orderBy: { name: 'asc' },
       skip,
       take: limit,
@@ -60,7 +60,6 @@ export class MenuItemRepository implements IMenuItemRepository {
         .imageUrl(item.imageUrl ?? null)
         .active(item.active)
         .category(item.category ?? null)
-        .orderItems(item.orderItems ?? [])
         .createdAt(item.createdAt)
         .updatedAt(item.updatedAt)
         .build(),

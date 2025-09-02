@@ -7,7 +7,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { MenuCategory, OrderItem } from '@prisma/client';
+import { MenuCategory } from '@prisma/client';
 
 export class MenuEntity {
   @ApiProperty({
@@ -69,11 +69,11 @@ export class MenuEntity {
   @IsOptional()
   category?: MenuCategory | null;
 
-  @ApiPropertyOptional({
-    description: 'Related order items',
-  })
-  @IsOptional()
-  orderItems?: OrderItem[];
+  // @ApiPropertyOptional({
+  //   description: 'Related order items',
+  // })
+  // @IsOptional()
+  // orderItems?: OrderItem[];
 
   @ApiProperty({
     description: 'Creation timestamp',

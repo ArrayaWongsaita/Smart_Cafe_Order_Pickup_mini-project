@@ -1,10 +1,7 @@
 'use client';
 import { usePathname } from 'next/navigation';
-import { BookOpen, Video, Users } from 'lucide-react';
 import NavItem from './NavItem';
-import NavDropdown from './NavDropdown';
 import { PUBLIC_ROUTE } from '@/shared/constants/route';
-import { Session } from 'next-auth';
 
 export default function Navbar() {
   const pathname = usePathname();

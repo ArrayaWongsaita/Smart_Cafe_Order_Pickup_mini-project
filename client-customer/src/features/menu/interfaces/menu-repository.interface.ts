@@ -4,7 +4,7 @@ import {
 } from '@/features/menu/types/menu-item.type';
 import { FilterMenuDto } from '@/features/menu/dto/filter-menu.dto';
 
-export interface MenuRepository {
+export interface IMenuRepository {
   findAllWithDetails(filter?: FilterMenuDto): Promise<MenuItemsWithPagination>;
   findById(id: string): Promise<MenuItem | null>;
   create(item: MenuItem): Promise<MenuItem>;
