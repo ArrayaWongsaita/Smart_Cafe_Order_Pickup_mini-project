@@ -1,4 +1,4 @@
-export class HttpError<T = any> extends Error {
+export class HttpError<T = unknown> extends Error {
   status: number;
   statusText: string;
   data: T;

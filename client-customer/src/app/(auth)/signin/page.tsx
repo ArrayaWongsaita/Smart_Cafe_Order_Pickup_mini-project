@@ -8,8 +8,6 @@ import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Sign In',
-  description:
-    'Sign in to your account to access your personal finance management dashboard.',
 };
 export default async function SignInPage() {
   return (

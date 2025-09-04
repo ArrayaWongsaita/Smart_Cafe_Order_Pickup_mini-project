@@ -49,6 +49,6 @@ import jwtConfig from 'src/shared/config/jwt.config';
       useClass: RegisterUseCase,
     },
   ],
-  exports: [JwtModule],
+  exports: [JwtModule, TokenService],
 })
 export class AuthModule {}

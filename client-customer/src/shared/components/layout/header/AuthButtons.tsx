@@ -33,10 +33,10 @@ export default function AuthButtons({
           </TransitionLink>
         </div>
       ) : (
-        <div className="h-8 px-4 py-[18px] hover:bg-primary-purple-disabled text-sm flex justify-center items-center bg-primary-foreground rounded-full">
+        <div className="h-8 px-4 py-[18px] dark:bg-secondary hover:bg-primary-purple-disabled text-sm flex justify-center items-center bg-primary-foreground rounded-full">
           <TransitionLink
             href={PUBLIC_ROUTE.SIGN_IN}
-            className="flex items-center justify-center w-full gap-1 py-3 text-primary"
+            className="flex items-center  justify-center w-full gap-1 py-3 text-primary"
           >
             <span>เข้าสู่ระบบ</span>
             <div className="bg-primary rounded-full p-1 flex justify-center items-center">

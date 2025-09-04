@@ -1,10 +1,10 @@
 export const PUBLIC_ROUTE = {
   HOME: '/',
-  SIGN_IN: '/signin',
-  SIGN_UP: '/signup',
   SIGN_OUT: '/signout',
+  SIGN_IN: '/signin',
 };
 
 export const PRIVATE_ROUTE = {
+  ORDERS: (page: number = 1) => `/orders/${page}`,
   DASHBOARD: '/dashboard',
 };

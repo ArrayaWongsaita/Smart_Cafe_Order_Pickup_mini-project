@@ -12,7 +12,7 @@ import { z } from 'zod';
 
 import { toast } from 'sonner';
 
-import { PUBLIC_ROUTE } from '@/shared/constants';
+import { PRIVATE_ROUTE } from '@/shared/constants';
 import { signInSchema } from '@/shared/schema/auth/auth.schema';
 import { signInCredentials } from '@/features/auth/lib/action/auth.action';
 import { FormTextField } from '@/shared/components/form/form-text-field';
@@ -24,8 +24,8 @@ export default function SignInForm() {
   const form = useForm<FormInput>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: 'john.doe@example.com',
-      password: 'Test123',
+      email: 'barista@example.com',
+      password: 'password2',
     },
   });
 
@@ -34,7 +34,8 @@ export default function SignInForm() {
       const result = await signInCredentials(data);
       if (result.success) {
         toast.success(result.message || 'Signed in successfully');
-        router.push(PUBLIC_ROUTE.HOME);
+        // Force router refresh to update session
+        router.push(PRIVATE_ROUTE.ORDERS(1));
       } else {
         form.setError('email', {
           type: 'manual',

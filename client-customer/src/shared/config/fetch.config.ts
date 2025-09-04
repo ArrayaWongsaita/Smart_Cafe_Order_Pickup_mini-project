@@ -1,8 +1,8 @@
 // utils/customFetch.ts
+import envConfig from '@/shared/config/envConfig';
 import { HttpError, NetworkError, JsonParseError } from '../lib/error';
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+const BASE_URL = envConfig.NEXT_PUBLIC_API_BASE_URL;
 
 type FetchOptions = RequestInit & {
   auth?: boolean;

@@ -19,9 +19,9 @@ async function AuthButtonContent() {
 
 export default function AuthButtonAndMobileMenu() {
   return (
-    <div className="flex items-center gap-4">
-      <CartButton />
+    <div className="flex items-center gap-5">
       <ModeToggle />
+      <CartButton />
       <Suspense fallback={<AuthButtonAndMobileMenuSkeleton />}>
         <AuthButtonContent />
       </Suspense>
