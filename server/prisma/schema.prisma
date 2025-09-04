@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// User roles for authorization
+enum Role {
+  CUSTOMER
+  BARISTA
+  ADMIN
+}
+
+/// Order lifecycle states
+enum OrderStatus {
+  PENDING // created but not yet acknowledged (optional state)
+  PREPARING // barista working
+  READY // ready for pickup
+  COMPLETED // picked up
+  CANCELLED
+}
+
+model User {
+  id            String         @id @default(uuid()) @db.Uuid
+  email         String         @unique
+  passwordHash  String
+  role          Role           @default(CUSTOMER)
+  orders        Order[]
+  refreshTokens RefreshToken[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([role])
+}
+
+model MenuCategory {
+  id        String     @id @default(uuid()) @db.Uuid
+  name      String     @unique
+  items     MenuItem[]
+  sortOrder Int        @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model MenuItem {
+  id          String        @id @default(uuid()) @db.Uuid
+  name        String
+  description String?
+  price       Int // store in smallest currency unit (e.g. satang) or whole baht if consistent
+  imageUrl    String?
+  active      Boolean       @default(true)
+  categoryId  String?       @db.Uuid
+  category    MenuCategory? @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@unique([name])
+  @@index([active])
+  @@index([categoryId])
+}
+
+model Topping {
+  id                String             @id @default(uuid()) @db.Uuid
+  name              String
+  price             Int // additional price
+  active            Boolean            @default(true)
+  orderItemToppings OrderItemTopping[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@unique([name])
+  @@index([active])
+}
+
+model Order {
+  id          String      @id @default(uuid()) @db.Uuid
+  orderCode   String      @unique // short code shown to customer (e.g. 6-char)
+  customerId  String?     @db.Uuid
+  customer    User?       @relation(fields: [customerId], references: [id])
+  status      OrderStatus @default(PREPARING)
+  items       OrderItem[]
+  totalPrice  Int // denormalized total at creation (immutable after completion)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  completedAt DateTime?
+  cancelledAt DateTime?
+  notes       String?
+
+  @@index([status, createdAt])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id        String @id @default(uuid()) @db.Uuid
+  orderId   String @db.Uuid
+  qty       Int    @default(1)
+  unitPrice Int
+  subtotal  Int
+
+  order     Order              @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  itemId    String             @db.Uuid // added @db.Uuid to match MenuItem.id
+  item      MenuItem           @relation(fields: [itemId], references: [id])
+  toppings  OrderItemTopping[]
+  createdAt DateTime           @default(now())
+
+  @@index([orderId])
+}
+
+model OrderItemTopping {
+  // Composite PK for uniqueness per topping per order item
+  orderItemId String    @db.Uuid
+  toppingId   String    @db.Uuid
+  orderItem   OrderItem @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+  topping     Topping   @relation(fields: [toppingId], references: [id])
+  price       Int
+
+  @@id([orderItemId, toppingId])
+}
+
+model RefreshToken {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @db.Uuid
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token      String    @unique
+  expiresAt  DateTime
+  createdAt  DateTime  @default(now())
+  revokedAt  DateTime?
+  replacedBy String?
+
+  @@index([userId])
+  @@index([expiresAt])
+}
