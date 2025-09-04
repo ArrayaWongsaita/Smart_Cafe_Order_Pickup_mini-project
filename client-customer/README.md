@@ -39,19 +39,19 @@ pnpm install
 Create a `.env.local` file in the root directory and configure the following environment variables:
 
 ```bash
-# API Configuration
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
-NEXT_PUBLIC_SOCKET_URL=http://localhost:8000
-
 # Authentication Secret (generate a random 32+ character string)
 AUTH_SECRET=your_super_secret_auth_key_here_minimum_32_chars
+
+# API Configuration
+API_BASE_URL=http://localhost:8000
+NEXT_PUBLIC_SOCKET_URL=http://localhost:8000/order
 ```
 
 #### Environment Variables Explanation:
 
-- `NEXT_PUBLIC_API_BASE_URL`: The base URL for your backend API server
-- `NEXT_PUBLIC_SOCKET_URL`: The URL for Socket.io real-time communication
 - `AUTH_SECRET`: A secret key for NextAuth.js session encryption (must be at least 32 characters)
+- `API_BASE_URL`: The base URL for your backend API server
+- `NEXT_PUBLIC_SOCKET_URL`: The URL for Socket.io real-time communication with order namespace
 
 ### 4. Generate Auth Secret
 
@@ -172,9 +172,9 @@ This client application requires a backend API server running. Make sure to:
 
 When deploying to production, ensure you set the environment variables:
 
-- `NEXT_PUBLIC_API_BASE_URL`: Your production API URL
-- `NEXT_PUBLIC_SOCKET_URL`: Your production Socket.io server URL
 - `AUTH_SECRET`: A secure random string (different from development)
+- `API_BASE_URL`: Your production API URL
+- `NEXT_PUBLIC_SOCKET_URL`: Your production Socket.io server URL with order namespace
 
 ### Vercel Deployment
 

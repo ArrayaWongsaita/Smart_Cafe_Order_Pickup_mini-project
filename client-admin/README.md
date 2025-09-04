@@ -43,19 +43,21 @@ pnpm install
 Create a `.env.local` file in the root directory and configure the following environment variables:
 
 ```bash
-# API Configuration
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
-NEXT_PUBLIC_SOCKET_URL=http://localhost:8000
-
 # Authentication Secret (minimum 32 characters)
-AUTH_SECRET=your_super_secret_auth_key_here_minimum_32_chars
+AUTH_SECRET=your_super_secret_auth_key_here_minimum_32_characters_long
+
+# API Base URL - Backend server endpoint
+API_BASE_URL=http://localhost:8000
+
+# Socket.io URL - Real-time communication endpoint
+NEXT_PUBLIC_SOCKET_URL=http://localhost:8000/order
 ```
 
 **Required Environment Variables:**
 
-- `NEXT_PUBLIC_API_BASE_URL`: Backend API URL
-- `NEXT_PUBLIC_SOCKET_URL`: Socket.io server URL
 - `AUTH_SECRET`: Secret key for NextAuth.js (minimum 32 characters)
+- `API_BASE_URL`: Backend API URL
+- `NEXT_PUBLIC_SOCKET_URL`: Socket.io server URL with order namespace
 
 ## 🏃‍♂️ Running the Application
 
