@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { usePathname } from 'next/navigation';
-import { Home, FileText, Phone } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 import { PUBLIC_ROUTE } from '@/shared/constants/route';
 // import AuthButtons from '../AuthButtons';

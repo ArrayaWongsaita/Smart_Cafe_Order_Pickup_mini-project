@@ -12,6 +12,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 import { RoleGuard } from 'src/modules/auth/guards/role.guard';
 import { MenusModule } from './modules/menus/menus.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { MenusModule } from './modules/menus/menus.module';
     UsersModule,
     AuthModule,
     MenusModule,
+    OrderModule,
   ],
   providers: [
     {

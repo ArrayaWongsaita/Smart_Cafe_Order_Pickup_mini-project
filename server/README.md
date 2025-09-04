@@ -1,98 +1,445 @@
+# Cafe Management System - Backend Server
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A modern cafe management system built with NestJS, featuring real-time order tracking, menu management, and barista workflow optimization.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- 🛡️ **Authentication & Authorization** - JWT-based auth with role-based access control
+- 📋 **Menu Management** - CRUD operations for menu items and categories
+- 🛒 **Order Management** - Real-time order processing with WebSocket support
+- 👨‍🍳 **Barista Dashboard** - Live order tracking and status updates
+- 📊 **Pagination & Filtering** - Efficient data handling with pagination
+- 📝 **API Documentation** - Auto-generated Swagger documentation
+- 🧪 **Testing** - Comprehensive unit and integration tests
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tech Stack
 
-## Project setup
+- **Framework**: NestJS (Node.js)
+- **Database**: PostgreSQL with Prisma ORM
+- **Real-time**: Socket.IO for WebSocket connections
+- **Authentication**: JWT with bcrypt
+- **Documentation**: Swagger/OpenAPI
+- **Testing**: Jest
+- **Validation**: class-validator & class-transformer
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v18 or higher)
+- **pnpm** (v8 or higher) - `npm install -g pnpm`
+- **PostgreSQL** (v13 or higher)
+- **Git**
+
+## Project Setup
+
+### 1. Clone the Repository
 
 ```bash
-$ pnpm install
+git clone <repository-url>
+cd cafe/server
 ```
 
-## Compile and run the project
+### 2. Install Dependencies
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+pnpm install
 ```
 
-## Run tests
+### 3. Environment Configuration
+
+Create a `.env` file in the root directory:
 
 ```bash
-# unit tests
-$ pnpm run test
+cp .env.example .env
+```
 
-# e2e tests
-$ pnpm run test:e2e
+Configure your `.env` file:
 
-# test coverage
-$ pnpm run test:cov
+```env
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/cafe_db"
+
+# JWT Configuration
+JWT_SECRET="your-super-secret-jwt-key"
+JWT_EXPIRES_IN="7d"
+JWT_REFRESH_SECRET="your-refresh-secret-key"
+JWT_REFRESH_EXPIRES_IN="30d"
+
+# App Configuration
+PORT=3000
+NODE_ENV=development
+
+# CORS
+CORS_ORIGIN="http://localhost:3000,http://localhost:5173"
+```
+
+### 4. Database Setup
+
+#### Create PostgreSQL Database
+
+```bash
+# Connect to PostgreSQL
+psql -U postgres
+
+# Create database
+CREATE DATABASE cafe_db;
+
+# Exit PostgreSQL
+\q
+```
+
+#### Generate Prisma Client
+
+```bash
+pnpm prisma generate
+```
+
+#### Run Database Migrations
+
+```bash
+# Apply all migrations
+pnpm prisma migrate deploy
+
+# Or reset database and apply migrations (development only)
+pnpm reset:db
+```
+
+#### Seed Database (Optional)
+
+```bash
+pnpm seed:db
+```
+
+### 5. Build and Run
+
+#### Development Mode
+
+```bash
+# Start in development mode with hot reload
+pnpm start:dev
+
+# Or start in watch mode
+pnpm start --watch
+```
+
+#### Production Mode
+
+```bash
+# Build the application
+pnpm build
+
+# Start in production mode
+pnpm start:prod
+```
+
+#### Debug Mode
+
+```bash
+pnpm start:debug
+```
+
+## API Documentation
+
+### Swagger UI
+
+Once the server is running, you can access the interactive API documentation:
+
+- **Local Development**: http://localhost:3000/api/docs
+- **Swagger JSON**: http://localhost:3000/api/docs-json
+
+### Main API Endpoints
+
+| Method | Endpoint            | Description         |
+| ------ | ------------------- | ------------------- |
+| POST   | `/auth/login`       | User login          |
+| POST   | `/auth/register`    | User registration   |
+| POST   | `/auth/refresh`     | Refresh JWT token   |
+| GET    | `/menus/categories` | Get menu categories |
+| GET    | `/menus/items`      | Get menu items      |
+| GET    | `/health`           | Health check        |
+
+### WebSocket Endpoints
+
+**Namespace**: `/order`
+
+| Event                          | Description                    | Role     |
+| ------------------------------ | ------------------------------ | -------- |
+| `order:create`                 | Create new order               | Customer |
+| `order:track`                  | Track order status             | Customer |
+| `order:join-new-orders`        | Join barista room              | Barista  |
+| `order:get-all-orders`         | Get all orders with pagination | Barista  |
+| `order:update-status`          | Update order status            | Barista  |
+| `order:status-update`          | Listen for status updates      | All      |
+| `order:new-order-notification` | Listen for new orders          | Barista  |
+
+## Database Management
+
+### Prisma Commands
+
+```bash
+# Generate Prisma client
+pnpm prisma generate
+
+# Apply migrations
+pnpm prisma migrate deploy
+
+# Create new migration
+pnpm prisma migrate dev --name <migration-name>
+
+# Reset database (development only)
+pnpm prisma migrate reset
+
+# View database in Prisma Studio
+pnpm prisma studio
+
+# Format schema file
+pnpm prisma format
+
+# Validate schema
+pnpm prisma validate
+```
+
+### Custom Database Commands
+
+```bash
+# Seed database with sample data
+pnpm seed:db
+
+# Reset database and seed (development only)
+pnpm reset:db
+```
+
+## Testing
+
+### Run Tests
+
+```bash
+# Unit tests
+pnpm test
+
+# Watch mode
+pnpm test:watch
+
+# Coverage report
+pnpm test:cov
+
+# E2E tests
+pnpm test:e2e
+
+# Debug tests
+pnpm test:debug
+```
+
+### Test Structure
+
+```
+src/
+├── modules/
+│   ├── auth/
+│   │   ├── auth.controller.spec.ts
+│   │   └── usecases/*.spec.ts
+│   ├── order/
+│   │   ├── order.gateway.spec.ts
+│   │   └── usecases/*.spec.ts
+│   └── health/
+│       └── controller/*.spec.ts
+└── test/
+    └── app.e2e-spec.ts
+```
+
+## Development Tools
+
+### Code Quality
+
+```bash
+# Lint code
+pnpm lint
+
+# Format code
+pnpm format
+
+# Fix linting issues
+pnpm lint --fix
+```
+
+### Database Tools
+
+```bash
+# Open Prisma Studio (Database GUI)
+pnpm prisma studio
+# Access at: http://localhost:5555
+```
+
+## Project Structure
+
+```
+src/
+├── modules/                 # Feature modules
+│   ├── auth/               # Authentication & authorization
+│   ├── health/             # Health check endpoints
+│   ├── menus/              # Menu management
+│   ├── order/              # Order management & WebSocket
+│   └── users/              # User management
+├── shared/                 # Shared utilities
+│   ├── config/             # Configuration files
+│   ├── decorators/         # Custom decorators
+│   ├── exceptions/         # Custom exceptions
+│   ├── filters/            # Exception filters
+│   ├── guards/             # Auth guards
+│   ├── interceptors/       # Custom interceptors
+│   ├── pipes/              # Validation pipes
+│   ├── prisma/             # Prisma service
+│   └── types/              # Type definitions
+├── app.module.ts           # Root module
+└── main.ts                 # Application entry point
+```
+
+## Environment Variables
+
+| Variable                 | Description                  | Example                                    |
+| ------------------------ | ---------------------------- | ------------------------------------------ |
+| `DATABASE_URL`           | PostgreSQL connection string | `postgresql://user:pass@localhost:5432/db` |
+| `JWT_SECRET`             | JWT signing secret           | `your-secret-key`                          |
+| `JWT_EXPIRES_IN`         | JWT token expiration         | `7d`                                       |
+| `JWT_REFRESH_SECRET`     | Refresh token secret         | `your-refresh-secret`                      |
+| `JWT_REFRESH_EXPIRES_IN` | Refresh token expiration     | `30d`                                      |
+| `PORT`                   | Server port                  | `3000`                                     |
+| `NODE_ENV`               | Environment mode             | `development`                              |
+| `CORS_ORIGIN`            | CORS allowed origins         | `http://localhost:3000`                    |
+
+## WebSocket Usage Examples
+
+### Customer Order Tracking
+
+```javascript
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000/order');
+
+// Track order
+socket.emit('order:track', { orderCode: 'ORD001' });
+
+// Listen for updates
+socket.on('order:status-update', (data) => {
+  console.log('Order status:', data.data.status);
+});
+```
+
+### Barista Dashboard
+
+```javascript
+const socket = io('http://localhost:3000/order', {
+  extraHeaders: {
+    authorization: 'Bearer YOUR_BARISTA_JWT_TOKEN',
+  },
+});
+
+// Join barista room
+socket.emit('order:join-new-orders');
+
+// Listen for new orders
+socket.on('order:new-order-notification', (order) => {
+  console.log('New order:', order);
+});
+
+// Update order status
+socket.emit('order:update-status', {
+  orderId: 'order-uuid',
+  status: 'READY',
+});
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Database Connection Error**
+
+   ```bash
+   # Check if PostgreSQL is running
+   sudo service postgresql status
+
+   # Verify DATABASE_URL in .env
+   # Ensure database exists
+   ```
+
+2. **Prisma Migration Issues**
+
+   ```bash
+   # Reset migrations (development only)
+   pnpm prisma migrate reset
+
+   # Generate client after schema changes
+   pnpm prisma generate
+   ```
+
+3. **Port Already in Use**
+
+   ```bash
+   # Kill process on port 3000
+   lsof -ti:3000 | xargs kill -9
+
+   # Or change PORT in .env
+   ```
+
+4. **WebSocket Connection Issues**
+   - Check CORS configuration
+   - Verify JWT token format
+   - Ensure proper namespace (`/order`)
+
+### Debugging
+
+```bash
+# Enable debug mode
+DEBUG=* pnpm start:dev
+
+# View application logs
+pnpm start:dev --verbose
+
+# Database query debugging
+# Add to .env: DATABASE_URL with ?debug=true
 ```
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### Production Checklist
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- [ ] Set `NODE_ENV=production`
+- [ ] Use strong JWT secrets
+- [ ] Configure proper CORS origins
+- [ ] Set up database backup
+- [ ] Configure reverse proxy (nginx)
+- [ ] Set up SSL certificates
+- [ ] Configure monitoring
+
+### Build for Production
 
 ```bash
-$ pnpm install -g mau
-$ mau deploy
+# Install dependencies
+pnpm install --frozen-lockfile
+
+# Generate Prisma client
+pnpm prisma generate
+
+# Run migrations
+pnpm prisma migrate deploy
+
+# Build application
+pnpm build
+
+# Start production server
+pnpm start:prod
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Contributing
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request

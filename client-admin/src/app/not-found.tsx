@@ -1,6 +1,4 @@
-import Link from 'next/link';
-
-import { Coffee, Home, ArrowLeft } from 'lucide-react';
+import { Coffee, Home } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
 import TransitionLink from '@/features/transitionNavigate/components/TransitionLink';
 
@@ -47,7 +45,7 @@ export default function NotFound() {
       </div>
 
       <div className="text-xs text-muted-foreground/60 mt-8">
-        🍪 Maybe grab a cookie while you're here?
+        🍪 Maybe grab a cookie while you&apos;re here?
       </div>
     </main>
   );

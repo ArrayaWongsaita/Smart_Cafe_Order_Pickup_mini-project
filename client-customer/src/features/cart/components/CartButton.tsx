@@ -13,11 +13,17 @@ import { cartService } from '../services';
 import { useState, useEffect } from 'react';
 import { formatPrice } from '@/shared/utils/formatPrice.util';
 import Image from 'next/image';
+import { useNavigation } from '@/features/transitionNavigate/hooks/navigation';
+import { usePathname, useRouter } from 'next/dist/client/components/navigation';
+import { PUBLIC_ROUTE } from '@/shared/constants';
 
 export function CartButton() {
   const { items, getTotalItems, getTotalPrice } = useCartStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const { TransitionNavigate } = useNavigation();
 
   // Prevent hydration mismatch by only showing cart count after client hydration
   useEffect(() => {
@@ -54,6 +60,11 @@ export function CartButton() {
     } catch (error) {
       console.error('Failed to clear cart:', error);
     }
+  };
+
+  const handleCheckout = async () => {
+    setIsOpen(false);
+    TransitionNavigate(PUBLIC_ROUTE.CHECKOUT, router, pathname);
   };
 
   return (
@@ -170,7 +181,7 @@ export function CartButton() {
                     </span>
                   </div>
 
-                  <Button className="w-full" onClick={() => setIsOpen(false)}>
+                  <Button className="w-full" onClick={handleCheckout}>
                     ดำเนินการสั่งซื้อ
                   </Button>
                 </div>

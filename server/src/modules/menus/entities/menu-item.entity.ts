@@ -7,9 +7,13 @@ import {
   IsUUID,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { MenuCategory } from '@prisma/client';
+import { MenuItem, MenuCategory } from '@prisma/client';
 
-export class MenuEntity {
+export interface MenuItemWithCategory extends MenuItem {
+  category?: MenuCategory | null;
+}
+
+export class MenuEntity implements MenuItem {
   @ApiProperty({
     description: 'Menu item UUID',
     example: '550e8400-e29b-41d4-a716-446655440000',
@@ -30,7 +34,7 @@ export class MenuEntity {
   })
   @IsOptional()
   @IsString()
-  description?: string | null;
+  description: string | null;
 
   @ApiProperty({
     description: 'Price in smallest currency unit',
@@ -46,7 +50,7 @@ export class MenuEntity {
   })
   @IsOptional()
   @IsString()
-  imageUrl?: string | null;
+  imageUrl: string | null;
 
   @ApiProperty({
     description: 'Whether the item is active/available',
@@ -61,13 +65,13 @@ export class MenuEntity {
   })
   @IsOptional()
   @IsUUID()
-  categoryId?: string | null;
+  categoryId: string | null;
 
   @ApiPropertyOptional({
     description: 'Related category object',
   })
   @IsOptional()
-  category?: MenuCategory | null;
+  category: MenuCategory | null;
 
   // @ApiPropertyOptional({
   //   description: 'Related order items',

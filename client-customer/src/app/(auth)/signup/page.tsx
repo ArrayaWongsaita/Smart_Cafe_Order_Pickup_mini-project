@@ -5,7 +5,6 @@ import TransitionLink from '@/features/transitionNavigate/components/TransitionL
 import Image from 'next/image';
 export const metadata: Metadata = {
   title: 'Sign Up',
-  description: 'Create a new account to start managing your personal finances.',
 };
 // <AuthCard title="Create new account" description="Get Started - It's free."></AuthCard>
 export default function SignUpPage() {

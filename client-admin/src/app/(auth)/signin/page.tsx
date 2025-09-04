@@ -1,6 +1,5 @@
 import AuthCard from '@/features/auth/components/auth-card';
 import SignInForm from '@/features/auth/components/sign-in-form';
-import SignUpForm from '@/features/auth/components/sign-up-form';
 import TransitionLink from '@/features/transitionNavigate/components/TransitionLink';
 
 import { Metadata } from 'next';
@@ -9,8 +8,6 @@ import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Sign In',
-  description:
-    'Sign in to your account to access your personal finance management dashboard.',
 };
 export default async function SignInPage() {
   return (

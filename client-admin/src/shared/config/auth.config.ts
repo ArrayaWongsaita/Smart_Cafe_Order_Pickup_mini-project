@@ -2,55 +2,10 @@ import { NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { customFetch } from './fetch.config';
 import { jwtDecode } from 'jwt-decode';
-import { JWT } from 'next-auth/jwt';
-
-async function refreshAccessToken(token: JWT): Promise<JWT> {
-  try {
-    const response = await customFetch<{
-      accessToken: string;
-      refreshToken: string;
-    }>('/v1/auth/refresh', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        refresh_token: token.refreshToken,
-      }),
-    });
-
-    const accessTokenDecoded = jwtDecode<{ exp: number }>(response.accessToken);
-
-    const accessTokenExpires = accessTokenDecoded.exp
-      ? Math.floor(accessTokenDecoded.exp * 1000 - 1000)
-      : 0;
-
-    const refreshTokenDecoded = jwtDecode<{ exp: number }>(
-      response.refreshToken
-    );
-
-    const refreshTokenExpires = refreshTokenDecoded.exp
-      ? Math.floor(refreshTokenDecoded.exp * 1000 - 1000)
-      : 0;
-
-    return {
-      ...token,
-      accessToken: response.accessToken,
-      accessTokenExpires: accessTokenExpires ?? token.accessTokenExpires,
-      refreshToken: response.refreshToken ?? token.refreshToken,
-      refreshTokenExpires: refreshTokenExpires ?? token.refreshTokenExpires,
-    };
-  } catch (error) {
-    console.error('Refresh token error', error);
-    return {
-      ...token,
-      error: {
-        accessToken: true,
-      },
-    };
-  }
-}
 
 import { signInSchema } from '@/shared/schema/auth/auth.schema';
 import { Role } from '@/shared/types/user.type';
+import { refreshAccessToken } from '@/infrastructure/api/server/auth.api';
 
 interface UserResponse {
   accessToken: string;
@@ -76,8 +31,6 @@ export const authConfig: NextAuthConfig = {
       credentials: { email: {}, password: {} },
       async authorize(credentials) {
         const data = signInSchema.parse(credentials);
-        console.log('Authorize called with data:', data);
-
         // Define response type explicitly
 
         const response = await customFetch<UserResponse>('/v1/auth/login', {

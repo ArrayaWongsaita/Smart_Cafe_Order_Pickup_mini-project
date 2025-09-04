@@ -17,6 +17,11 @@ export default function Navbar() {
         label="เมนู"
         active={pathname === PUBLIC_ROUTE.MENU(1)}
       />
+      <NavItem
+        href={PUBLIC_ROUTE.SEARCH_ORDER}
+        label="ค้นหาคำสั่งซื้อ"
+        active={pathname === PUBLIC_ROUTE.SEARCH_ORDER}
+      />
     </div>
   );
 }
