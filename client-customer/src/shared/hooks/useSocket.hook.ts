@@ -2,11 +2,11 @@ import { io, Socket } from 'socket.io-client';
 import { create } from 'zustand';
 
 import { toast } from 'sonner';
-import envConfig from '@/shared/config/envConfig';
 import { SOCKET_EVENTS } from '@/shared/constants/socket.constant';
 import { getSession } from 'next-auth/react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { PUBLIC_ROUTE } from '@/shared/constants';
+import envClientConfig from '@/shared/config/envClient.config';
 
 interface SocketState {
   socket: Socket | null;
@@ -38,7 +38,7 @@ export const useSocket = create<SocketStore>((set) => ({
     if (session && session.error?.refreshToken) {
       router.push(PUBLIC_ROUTE.SIGN_OUT);
     }
-    const socket: Socket = io(envConfig.NEXT_PUBLIC_SOCKET_URL, {
+    const socket: Socket = io(envClientConfig.NEXT_PUBLIC_SOCKET_URL, {
       auth: {
         token: session?.token?.accessToken || '',
       },
