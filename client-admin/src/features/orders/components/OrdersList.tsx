@@ -1,4 +1,5 @@
 import { OrderCard } from './OrderCard';
+import { useOrdersStore } from '../store/orders.store';
 import type { Order, OrderStatusFilter } from '../types';
 
 interface OrdersListProps {
@@ -12,6 +13,7 @@ export function OrdersList({
   selectedStatus,
   onUpdateStatus,
 }: OrdersListProps) {
+  const { isOrderUpdating } = useOrdersStore();
   if (orders.length === 0) {
     const getEmptyMessage = () => {
       switch (selectedStatus) {
@@ -40,6 +42,7 @@ export function OrdersList({
           key={order.id}
           order={order}
           onUpdateStatus={onUpdateStatus}
+          isUpdating={isOrderUpdating(order.id)}
         />
       ))}
     </div>

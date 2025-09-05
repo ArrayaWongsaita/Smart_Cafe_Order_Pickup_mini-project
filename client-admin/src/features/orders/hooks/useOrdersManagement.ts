@@ -17,6 +17,7 @@ export function useOrdersManagement(currentPage: number) {
     setLoading,
     addNewOrder,
     updateOrderStatus: updateOrderInStore,
+    setOrderUpdating,
   } = useOrdersStore();
 
   const fetchOrders = () => {
@@ -40,10 +41,16 @@ export function useOrdersManagement(currentPage: number) {
   const updateOrderStatus = (orderId: string, status: Order['status']) => {
     if (!socket) return;
 
+    // Set loading state for this specific order
+    setOrderUpdating(orderId, true);
+
     socket.emit(
       'order:update-status',
       { orderId, status },
       (response: UpdateOrderStatusResponse) => {
+        // Remove loading state for this order
+        setOrderUpdating(orderId, false);
+        
         if (response.success) {
           updateOrderInStore(orderId, response.data);
         }
