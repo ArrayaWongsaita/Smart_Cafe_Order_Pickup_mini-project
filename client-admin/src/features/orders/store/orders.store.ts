@@ -14,6 +14,7 @@ interface OrdersState {
   selectedStatus: OrderStatusFilter;
   meta: OrdersResponse['meta'] | null;
   loading: boolean;
+  updatingOrderIds: string[];
 
   // Actions
   setOrders: (orders: Order[]) => void;
@@ -23,11 +24,13 @@ interface OrdersState {
   addNewOrder: (order: NewOrderNotification) => void;
   updateOrderStatus: (orderId: string, updatedOrder: Order) => void;
   filterOrdersByStatus: (status: OrderStatusFilter) => void;
+  setOrderUpdating: (orderId: string, isUpdating: boolean) => void;
 
   // Computed values
   getStatusCount: (status: Order['status']) => number;
   getActiveOrdersCount: () => number;
   getInactiveOrdersCount: () => number;
+  isOrderUpdating: (orderId: string) => boolean;
 }
 
 export const useOrdersStore = create<OrdersState>()(
@@ -39,6 +42,7 @@ export const useOrdersStore = create<OrdersState>()(
       selectedStatus: 'ACTIVE',
       meta: null,
       loading: true,
+      updatingOrderIds: [],
 
       // Actions
       setOrders: (orders) => {
@@ -72,6 +76,17 @@ export const useOrdersStore = create<OrdersState>()(
         set({ orders: newOrders });
         // Re-filter orders when order is updated
         get().filterOrdersByStatus(get().selectedStatus);
+      },
+
+      setOrderUpdating: (orderId, isUpdating) => {
+        const { updatingOrderIds } = get();
+        if (isUpdating) {
+          set({ updatingOrderIds: [...updatingOrderIds, orderId] });
+        } else {
+          set({ 
+            updatingOrderIds: updatingOrderIds.filter(id => id !== orderId) 
+          });
+        }
       },
 
       filterOrdersByStatus: (status) => {
@@ -113,6 +128,11 @@ export const useOrdersStore = create<OrdersState>()(
         return orders.filter((order) =>
           ['COMPLETED', 'CANCELLED'].includes(order.status)
         ).length;
+      },
+
+      isOrderUpdating: (orderId) => {
+        const { updatingOrderIds } = get();
+        return updatingOrderIds.includes(orderId);
       },
     }),
     {
