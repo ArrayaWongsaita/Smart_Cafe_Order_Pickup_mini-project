@@ -29,6 +29,7 @@ import {
   CreateMenuItemDocument,
   UpdateMenuItemDocument,
   DeleteMenuItemDocument,
+  GetMenuItemsByIdDocument,
 } from 'src/modules/menus/doc/menu-item-document.swagger';
 import {
   GetAllMenuCategoriesDocument,
@@ -45,6 +46,11 @@ import { CreateMenuCategoryResponse } from '../dto/response/create-menu-category
 import { CreateMenuItemResponse } from '../dto/response/create-menu-item.response';
 import { UpdateMenuItemDto } from '../dto/request/update-menu-item.dto';
 import { UpdateMenuItemResponse } from '../dto/response/update-menu-item.response';
+import { GetMenuItemsByIdResponse } from '../dto/response/get-menu-item-by-id.response';
+import {
+  GetMenuItemsByIdUseCase,
+  GetMenuItemsByIdUseCaseToken,
+} from 'src/modules/menus/usecases/get-menu-item-by-id.usecase';
 
 @Controller('menus')
 @ApiTags('menus')
@@ -54,6 +60,9 @@ export class MenusController {
     private readonly getAllUseCase: GetAllMenuItemsUseCase,
     @Inject(GetAllMenuCategoriesUseCaseToken)
     private readonly getAllCategoriesUseCase: GetAllMenuCategoriesUseCase,
+
+    @Inject(GetMenuItemsByIdUseCaseToken)
+    private readonly getMenuItemsByIdUseCase: GetMenuItemsByIdUseCase,
     private readonly createMenuCategoryUseCase: CreateMenuCategoryUseCase,
     private readonly createMenuItemUseCase: CreateMenuItemUseCase,
     private readonly updateMenuItemUseCase: UpdateMenuItemUseCase,
@@ -133,5 +142,16 @@ export class MenusController {
   @DeleteMenuItemDocument()
   async deleteMenuItem(@Param('id') id: string): Promise<void> {
     await this.deleteMenuItemUseCase.execute(id);
+  }
+
+  @Get(':id')
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @GetMenuItemsByIdDocument()
+  @ValidateResponse(GetMenuItemsByIdResponse)
+  async getMenuItemsById(
+    @Param('id') id: string,
+  ): Promise<GetMenuItemsByIdResponse> {
+    return await this.getMenuItemsByIdUseCase.execute(id);
   }
 }

@@ -12,6 +12,7 @@ import { CreateMenuItemResponse } from '../dto/response/create-menu-item.respons
 import { CreateMenuItemDto } from '../dto/request/create-menu-item.dto';
 import { UpdateMenuItemResponse } from '../dto/response/update-menu-item.response';
 import { UpdateMenuItemDto } from '../dto/request/update-menu-item.dto';
+import { GetMenuItemsByIdResponse } from '../dto/response/get-menu-item-by-id.response';
 
 export function GetAllMenuItemsDocument() {
   return applyDecorators(
@@ -126,6 +127,29 @@ export function DeleteMenuItemDocument() {
     ApiResponse({
       status: HttpStatus.NOT_FOUND,
       description: 'Menu item not found or already inactive',
+    }),
+  );
+}
+
+export function GetMenuItemsByIdDocument() {
+  return applyDecorators(
+    ApiOperation({
+      summary: 'Get menu item by ID',
+      description:
+        'Retrieve a specific menu item by its ID with category information',
+    }),
+    ApiResponse({
+      status: HttpStatus.OK,
+      description: 'Menu item retrieved successfully',
+      type: GetMenuItemsByIdResponse,
+    }),
+    ApiResponse({
+      status: HttpStatus.NOT_FOUND,
+      description: 'Menu item not found',
+    }),
+    ApiResponse({
+      status: HttpStatus.BAD_REQUEST,
+      description: 'Invalid ID format',
     }),
   );
 }
