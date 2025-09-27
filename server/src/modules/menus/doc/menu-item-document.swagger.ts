@@ -1,12 +1,17 @@
-import { applyDecorators } from '@nestjs/common';
+import { applyDecorators, HttpStatus } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiQuery,
   ApiResponse,
   ApiTags,
+  ApiBody,
 } from '@nestjs/swagger';
 import { GetAllMenuItemsResponse } from 'src/modules/menus/dto/response/get-all-menu-item.response';
+import { CreateMenuItemResponse } from '../dto/response/create-menu-item.response';
+import { CreateMenuItemDto } from '../dto/request/create-menu-item.dto';
+import { UpdateMenuItemResponse } from '../dto/response/update-menu-item.response';
+import { UpdateMenuItemDto } from '../dto/request/update-menu-item.dto';
 
 export function GetAllMenuItemsDocument() {
   return applyDecorators(
@@ -50,6 +55,77 @@ export function GetAllMenuItemsDocument() {
     ApiResponse({
       status: 403,
       description: 'Forbidden - Insufficient permissions',
+    }),
+  );
+}
+
+export function CreateMenuItemDocument() {
+  return applyDecorators(
+    ApiOperation({
+      summary: 'Create a new menu item',
+      description:
+        'Create a new menu item with name, price, and optional details',
+    }),
+    ApiBody({
+      type: CreateMenuItemDto,
+      description: 'Menu item creation data',
+    }),
+    ApiResponse({
+      status: HttpStatus.CREATED,
+      description: 'Menu item created successfully',
+      type: CreateMenuItemResponse,
+    }),
+    ApiResponse({
+      status: HttpStatus.BAD_REQUEST,
+      description: 'Validation error or item name already exists',
+    }),
+    ApiResponse({
+      status: HttpStatus.NOT_FOUND,
+      description: 'Category not found (if categoryId provided)',
+    }),
+  );
+}
+
+export function UpdateMenuItemDocument() {
+  return applyDecorators(
+    ApiOperation({
+      summary: 'Update a menu item',
+      description: 'Update an existing menu item by ID',
+    }),
+    ApiBody({
+      type: UpdateMenuItemDto,
+      description: 'Menu item update data',
+    }),
+    ApiResponse({
+      status: HttpStatus.OK,
+      description: 'Menu item updated successfully',
+      type: UpdateMenuItemResponse,
+    }),
+    ApiResponse({
+      status: HttpStatus.BAD_REQUEST,
+      description: 'Validation error or item name already exists',
+    }),
+    ApiResponse({
+      status: HttpStatus.NOT_FOUND,
+      description: 'Menu item or category not found',
+    }),
+  );
+}
+
+export function DeleteMenuItemDocument() {
+  return applyDecorators(
+    ApiOperation({
+      summary: 'Delete a menu item (soft delete)',
+      description:
+        'Soft delete an existing menu item by ID. This sets the active field to false instead of permanently deleting the record.',
+    }),
+    ApiResponse({
+      status: HttpStatus.NO_CONTENT,
+      description: 'Menu item deleted successfully (set to inactive)',
+    }),
+    ApiResponse({
+      status: HttpStatus.NOT_FOUND,
+      description: 'Menu item not found or already inactive',
     }),
   );
 }

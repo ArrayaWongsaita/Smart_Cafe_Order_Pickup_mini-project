@@ -12,6 +12,10 @@ import {
   GetAllMenuCategoriesUseCase,
   GetAllMenuCategoriesUseCaseToken,
 } from 'src/modules/menus/usecases/get-all-menu-categories.usecase';
+import { CreateMenuCategoryUseCase } from './usecases/create-menu-category.usecase';
+import { CreateMenuItemUseCase } from './usecases/create-menu-item.usecase';
+import { UpdateMenuItemUseCase } from './usecases/update-menu-item.usecase';
+import { DeleteMenuItemUseCase } from './usecases/delete-menu-item.usecase';
 
 const providers: Provider[] = [
   {
@@ -30,6 +34,10 @@ const providers: Provider[] = [
     provide: GetAllMenuCategoriesUseCaseToken,
     useClass: GetAllMenuCategoriesUseCase,
   },
+  CreateMenuCategoryUseCase,
+  CreateMenuItemUseCase,
+  UpdateMenuItemUseCase,
+  DeleteMenuItemUseCase,
 ];
 
 @Module({
