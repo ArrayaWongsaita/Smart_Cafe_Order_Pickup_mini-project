@@ -12,3 +12,10 @@ export const PUBLIC_ROUTE = {
 export const PRIVATE_ROUTE = {
   DASHBOARD: '/dashboard',
 };
+
+export const PROTECTED_ROUTE: RegExp[] = [/\/admin\/?.*/] as const;
+export const GUEST_ONLY_ROUTE: RegExp[] = [/\/signin/, /\/signup/] as const;
+export const AUTHENTICATED_ONLY_ROUTE: RegExp[] = [
+  /\/order\/checkout/,
+  /\/order\/status\/?.*/,
+] as const;

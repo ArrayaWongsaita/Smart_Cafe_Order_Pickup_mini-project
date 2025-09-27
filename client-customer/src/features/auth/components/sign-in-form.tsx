@@ -5,7 +5,7 @@ import { Form } from '@/shared/components/ui/form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,6 +20,8 @@ import { FormTextField } from '@/shared/components/form/form-text-field';
 type FormInput = z.infer<typeof signInSchema>;
 export default function SignInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || PUBLIC_ROUTE.MENU(1);
   const [isPending, startTransition] = useTransition();
   const form = useForm<FormInput>({
     resolver: zodResolver(signInSchema),
@@ -35,7 +37,7 @@ export default function SignInForm() {
       if (result.success) {
         toast.success(result.message || 'Signed in successfully');
         // Force router refresh to update session
-        router.push(PUBLIC_ROUTE.MENU(1));
+        router.push(callbackUrl);
       } else {
         form.setError('email', {
           type: 'manual',

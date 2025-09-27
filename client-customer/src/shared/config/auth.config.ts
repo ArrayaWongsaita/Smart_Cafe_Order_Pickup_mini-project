@@ -6,6 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 import { signInSchema } from '@/shared/schema/auth/auth.schema';
 import { Role } from '@/shared/types/user.type';
 import { refreshAccessToken } from '@/infrastructure/api/server/auth.api';
+import { PUBLIC_ROUTE } from '@/shared/constants';
 
 interface UserResponse {
   accessToken: string;
@@ -22,8 +23,8 @@ interface UserResponse {
 export const authConfig: NextAuthConfig = {
   trustHost: true,
   pages: {
-    signIn: '/signin',
-    signOut: '/signout',
+    signIn: PUBLIC_ROUTE.SIGN_IN,
+    signOut: PUBLIC_ROUTE.SIGN_OUT,
     error: '/error',
   },
   providers: [

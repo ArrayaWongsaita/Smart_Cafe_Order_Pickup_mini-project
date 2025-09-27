@@ -1,6 +1,6 @@
-import 'next-auth/jwt';
 import 'next-auth';
 import { ROLE } from '@/shared/constants/role';
+
 declare module 'next-auth/jwt' {
   interface JWT {
     id: string;
